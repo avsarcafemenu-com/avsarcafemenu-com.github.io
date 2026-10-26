@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Avşar Cafe Menü</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Marcellus&family=Alegreya+Sans:wght@400;500;700&family=Reem+Kufi:wght@500;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
+<style>
+/* Layout: single dark column like the laminated table card — script logo, sticky category chips, then sections with dotted-leader item rows */
+:root{
+  --bg:#17110c;          /* roasted coffee */
+  --surface:#211811;
+  --line:#3a2b1e;
+  --fg:#f3e7d3;          /* foam */
+  --muted:#b8a58b;
+  --gold:#e0a64a;        /* brass tray */
+  --gold-soft:#f0c97e;
+  --display:"Marcellus", Georgia, "Times New Roman", serif;
+  --script:"Lobster", "Brush Script MT", cursive;
+  --body:"Alegreya Sans", "Segoe UI", system-ui, sans-serif;
+  --ar-display:"Reem Kufi", "Geeza Pro", Tahoma, sans-serif;
+  --ar-body:"Noto Naskh Arabic", "Geeza Pro", Tahoma, serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--bg);
+  background-image:radial-gradient(120% 60% at 50% 0%, #2a1d12 0%, var(--bg) 60%);
+  color:var(--fg);
+  font-family:var(--body);
+  font-size:17px;
+  line-height:1.5;
+  min-height:100%;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* header */
+header{padding-block:28px 8px;text-align:center}
+.langs{display:flex;justify-content:flex-end;gap:6px}
+.langs button{
+  font:600 14px/1 var(--body);color:var(--muted);background:transparent;
+  border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer
+}
+.langs button[aria-pressed="true"]{color:var(--bg);background:var(--gold);border-color:var(--gold)}
+.langs button:focus-visible,.chips a:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
+.langs button[data-lang="ar"]{font-family:var(--ar-body)}
+.cup{width:58px;height:58px;margin:18px auto 0;display:block}
+.brand{font-family:var(--script);font-size:clamp(56px,16vw,84px);line-height:1;color:var(--gold-soft);margin:4px 0 0;
+  text-shadow:0 2px 0 #00000055}
+.sub{font-family:var(--display);letter-spacing:.42em;font-size:15px;color:var(--gold);margin:6px 0 0;padding-left:.42em}
+.ornament{display:flex;align-items:center;gap:10px;justify-content:center;margin:14px auto 0;color:var(--gold);max-width:240px}
+.ornament::before,.ornament::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.ornament::after{background:linear-gradient(270deg,transparent,var(--gold))}
+
+/* category chips */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin-top:18px}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding-block:10px}
+.chips a{text-decoration:none;color:var(--fg);font-size:14px;line-height:1.2;padding:7px 12px;border-radius:999px;
+  background:var(--surface);border:1px solid var(--line);white-space:nowrap;cursor:pointer;touch-action:manipulation}
+.chips a:active{background:var(--line)}
+.chips a.on{border-color:var(--gold);color:var(--gold-soft)}
+
+/* menu */
+main{padding-block:8px 40px}
+section{padding-top:26px;scroll-margin-top:calc(var(--navh,64px) + env(safe-area-inset-top,0px))}
+h2{font-family:var(--display);font-weight:400;color:var(--gold);font-size:26px;margin:0 0 10px;
+  display:flex;align-items:baseline;gap:10px;text-wrap:balance}
+h2 .n{font-size:13px;color:var(--muted);font-family:var(--body);letter-spacing:.08em}
+ul{list-style:none;margin:0;padding:0}
+li{padding-block:11px;border-bottom:1px dashed var(--line)}
+li:last-child{border-bottom:0}
+.name{font-weight:500;font-size:18px}
+.note{display:block;color:var(--muted);font-size:15px;margin-top:2px}
+
+footer{text-align:center;color:var(--muted);font-size:14px;padding-block:8px 32px;border-top:1px solid var(--line)}
+footer .brand-s{font-family:var(--script);color:var(--gold);font-size:22px}
+
+/* Arabic */
+html[lang="ar"] body{font-family:var(--ar-body);font-size:18px;line-height:1.75}
+html[lang="ar"] h2{font-family:var(--ar-display);font-weight:500}
+html[lang="ar"] .chips a,html[lang="ar"] .name{font-family:var(--ar-body)}
+html[lang="ar"] .langs{justify-content:flex-start}
+html[lang="ar"] .sub{letter-spacing:0;padding-left:0;font-family:var(--ar-display);font-size:18px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="langs" role="group" aria-label="Dil / اللغة">
+      <button type="button" id="btn-tr" data-lang="tr" aria-pressed="true">Türkçe</button>
+      <button type="button" id="btn-ar" data-lang="ar" aria-pressed="false">العربية</button>
+    </div>
+    <svg class="cup" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#e0a64a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 6c-3 4 3 6 0 10M32 4c-3 4 3 6 0 10M40 6c-3 4 3 6 0 10" stroke="#b8a58b"/>
+      <path d="M12 24h34v8c0 10-7.6 18-17 18S12 42 12 32z" fill="#2a1d12"/>
+      <path d="M46 27h4a5 5 0 0 1 0 10h-5"/>
+      <path d="M6 54h46" />
+      <path d="M18 31c4 3 18 3 22 0" stroke="#f0c97e"/>
+    </svg>
+    <h1 class="brand">Avşar</h1>
+    <p class="sub" id="sub">CAFE</p>
+    <div class="ornament" aria-hidden="true">✦</div>
+  </header>
+</div>
+
+<nav aria-label="Kategoriler">
+  <div class="wrap"><div class="chips" id="chips"></div></div>
+</nav>
+
+<div class="wrap">
+  <main id="menu"></main>
+  <footer><span class="brand-s">Avşar Cafe</span><br><span id="foot"></span></footer>
+</div>
+
+<script>
+const MENU = [
+  { id:"tost", tr:"Tost Çeşitleri", ar:"أنواع التوست", items:[
+    ["Kaşarlı Tost","توست بجبنة القشقوان"],
+    ["Karışık Tost","توست مشكّل"],
+    ["Kavurmalı Tost","توست باللحم المحمّر (قاورما)"],
+    ["Beyaz Peynirli Tost","توست بالجبنة البيضاء"]
+  ]},
+  { id:"yemek", tr:"Yemek Çeşitleri", ar:"الأطباق", items:[
+    ["Hamburger","همبرغر"],
+    ["Köfte Ekmek Arası","ساندويش كفتة"],
+    ["Patates Kızartması","بطاطا مقلية"],
+    ["Patso","باتسو",null,"ساندويش بطاطا مقلية"],
+    ["Menemen","منمن",null,"بيض بالطماطم والفلفل"],
+    ["Omlet","أومليت"],
+    ["Sucuklu Yumurta","بيض بالسجق"],
+    ["Ciğer Ekmek Arası","ساندويش كبدة"],
+    ["Amerikan Salatası","سلطة أمريكية"],
+    ["Kremalı Makarna","معكرونة بالكريمة"],
+    ["Tavuklu Kremalı Makarna","معكرونة بالكريمة والدجاج"],
+    ["Gözleme","كوزلمة","Kaşarlı, beyaz peynirli, patatesli","بالقشقوان، بالجبنة البيضاء، بالبطاطا"]
+  ]},
+  { id:"tatli", tr:"Tatlı Çeşitleri", ar:"الحلويات", items:[
+    ["Antep Fıstıklı Baklava","بقلاوة بفستق عنتاب"],
+    ["Fıstıklı Baklava","بقلاوة بالفستق"],
+    ["Supangle","سوبانغلي",null,"بودينغ الشوكولاتة"],
+    ["Mangolia","مانغوليا"],
+    ["Katmer","قطمر"],
+    ["Sütlaç","أرز بالحليب"]
+  ]},
+  { id:"sicak", tr:"Sıcak İçecekler", ar:"المشروبات الساخنة", items:[
+    ["Çay","شاي"],
+    ["Bitki Çayı","شاي أعشاب"],
+    ["Oralet Çeşitleri","أورالت بنكهات متعددة","Muz, kivi, portakal, karadut, nane-limon ve daha fazlası","موز، كيوي، برتقال، توت أسود، نعناع وليمون والمزيد"],
+    ["Türk Kahvesi","قهوة تركية"],
+    ["Nescafe","نسكافيه"],
+    ["Salep","سحلب"],
+    ["Sıcak Çikolata","شوكولاتة ساخنة"]
+  ]},
+  { id:"soguk", tr:"Soğuk İçecekler", ar:"المشروبات الباردة", items:[
+    ["Meşrubat","مشروبات غازية","Kola, fanta ve diğerleri","كولا، فانتا وغيرها"],
+    ["Soda","مياه معدنية غازية","Sade, limonlu, elmalı ve diğerleri","سادة، بالليمون، بالتفاح وغيرها"],
+    ["Çörçil","تشرشل",null,"صودا بالليمون"],
+    ["Ayran","عيران"]
+  ]},
+  { id:"kuruyemis", tr:"Kuruyemiş Tabağı", ar:"طبق المكسرات", items:[
+    ["Karışık Kuruyemiş","مكسرات مشكّلة"]
+  ]},
+  { id:"meyve", tr:"Meyve Tabağı", ar:"طبق الفواكه", items:[
+    ["Karışık Meyve","فواكه مشكّلة"]
+  ]}
+];
+const UI = {
+  tr:{sub:"CAFE", foot:"Afiyet olsun", nav:"Kategoriler", items:n=>n+" çeşit"},
+  ar:{sub:"مقهى", foot:"بالهناء والشفاء", nav:"الأقسام", items:n=>n+" أصناف"}
+};
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function render(lang){
+  const ar = lang==="ar";
+  document.documentElement.lang = lang;
+  document.documentElement.dir = ar ? "rtl" : "ltr";
+  document.getElementById("sub").textContent = UI[lang].sub;
+  document.getElementById("foot").textContent = UI[lang].foot;
+  document.querySelector("nav").setAttribute("aria-label", UI[lang].nav);
+  document.getElementById("chips").innerHTML = MENU.map(c=>`<a href="#${c.id}" data-id="${c.id}">${esc(ar?c.ar:c.tr)}</a>`).join("");
+  document.getElementById("menu").innerHTML = MENU.map(c=>`
+    <section id="${c.id}">
+      <h2>${esc(ar?c.ar:c.tr)} <span class="n">${esc(UI[lang].items(c.items.length))}</span></h2>
+      <ul>${c.items.map(([tr,a,trNote,arNote])=>{
+        const note = ar ? arNote : trNote;
+        return `<li><span class="name">${esc(ar?a:tr)}</span>${note?`<span class="note">${esc(note)}</span>`:""}</li>`;
+      }).join("")}</ul>
+    </section>`).join("");
+  document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===lang)));
+  observe();
+}
+
+let io;
+function observe(){
+  if(io) io.disconnect();
+  if(!("IntersectionObserver" in window)) return;
+  io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        document.querySelectorAll(".chips a").forEach(a=>{
+          const on = a.dataset.id===e.target.id;
+          a.classList.toggle("on", on);
+        });
+      }
+    });
+  },{rootMargin:"-40% 0px -55% 0px"});
+  document.querySelectorAll("main section").forEach(s=>io.observe(s));
+}
+
+document.getElementById("chips").addEventListener("click", e=>{
+  const a = e.target.closest("a[data-id]");
+  if(!a) return;
+  e.preventDefault();
+  const sec = document.getElementById(a.dataset.id);
+  if(!sec) return;
+  const navH = document.querySelector("nav").offsetHeight;
+  const y = sec.getBoundingClientRect().top + window.scrollY - navH - 4;
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({top:y, behavior: reduce ? "auto" : "smooth"});
+});
+function setNavH(){ document.documentElement.style.setProperty("--navh", document.querySelector("nav").offsetHeight + "px"); }
+window.addEventListener("resize", setNavH);
+
+let lang = "tr";
+try{ const s = localStorage.getItem("avsar-lang"); if(s==="tr"||s==="ar") lang = s; else if((navigator.language||"").toLowerCase().startsWith("ar")) lang="ar"; }catch(e){}
+document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>{
+  lang = b.dataset.lang; render(lang);
+  try{ localStorage.setItem("avsar-lang", lang); }catch(e){}
+  setNavH();
+}));
+render(lang);
+setNavH();
+</script>
+</body>
+</html>
