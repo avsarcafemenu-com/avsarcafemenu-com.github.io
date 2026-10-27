@@ -120,7 +120,7 @@ html[lang="ar"] .tag,html[lang="ar"] .flav .group{letter-spacing:0}
     </svg>
     <h1 class="brand">Avşar</h1>
     <p class="sub" id="sub">CAFE</p>
-    <p class="tag" id="tag">Nargile · Kahve · Okey</p>
+    <p class="tag" id="tag">Nargile · Kahve · Okey · Tavla</p>
     <div class="ornament" aria-hidden="true">✦</div>
   </header>
 </div>
@@ -203,15 +203,19 @@ const MENU = [
     {n:["Sakız","Gum","علكة"]},
     {n:["Damla Sakız","Mastic Gum","علكة مستكة"]},
     {n:["Sakız Nane","Gum Mint","علكة بالنعناع"]}
+  ]},
+  { id:"oyun", t:["Oyunlar","Games","الألعاب"], items:[
+    {n:["Okey","Okey","أوكي"], d:[null,"Turkish tile game","لعبة الأحجار التركية"]},
+    {n:["Tavla","Backgammon","طاولة الزهر"]}
   ]}
 ];
 const LANGS = ["tr","en","ar"];
 const UI = {
-  tr:{sub:"CAFE", tag:"Nargile · Kahve · Okey", foot:"Fiyatlar Türk Lirası (₺) cinsindendir. Afiyet olsun!", nav:"Kategoriler",
+  tr:{sub:"CAFE", tag:"Nargile · Kahve · Okey · Tavla", foot:"Fiyatlar Türk Lirası (₺) cinsindendir. Afiyet olsun!", nav:"Kategoriler",
       count:n=>n+" çeşit", flav:n=>n+" aroma"},
-  en:{sub:"CAFE", tag:"Hookah · Coffee · Okey", foot:"Prices are in Turkish lira (₺). Enjoy your meal!", nav:"Categories",
+  en:{sub:"CAFE", tag:"Hookah · Coffee · Okey · Backgammon", foot:"Prices are in Turkish lira (₺). Enjoy your meal!", nav:"Categories",
       count:n=>n+" items", flav:n=>n+" flavours"},
-  ar:{sub:"مقهى", tag:"أرجيلة · قهوة · أوكي", foot:"الأسعار بالليرة التركية (₺). بالهناء والشفاء!", nav:"الأقسام",
+  ar:{sub:"مقهى", tag:"أرجيلة · قهوة · أوكي · طاولة", foot:"الأسعار بالليرة التركية (₺). بالهناء والشفاء!", nav:"الأقسام",
       count:n=>n+" أصناف", flav:n=>n+" نكهة"}
 };
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
