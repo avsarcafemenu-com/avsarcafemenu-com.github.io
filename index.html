@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&family=Marcellus&family=Alegreya+Sans:wght@400;500;700&family=Reem+Kufi:wght@500;700&family=Noto+Naskh+Arabic:wght@400;600&display=swap">
 <style>
-/* Layout: single dark column like the laminated table card — script logo, sticky category chips, then sections with dotted-leader item rows */
+/* Layout: single dark column like the laminated table card — script logo, sticky category chips, sections with dotted-leader rows ending in the price */
 :root{
   --bg:#17110c;          /* roasted coffee */
   --surface:#211811;
@@ -41,26 +41,27 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .wrap{max-width:640px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 
 /* header */
-header{padding-block:28px 8px;text-align:center}
+header{padding-block:24px 8px;text-align:center}
 .langs{display:flex;justify-content:flex-end;gap:6px}
 .langs button{
   font:600 14px/1 var(--body);color:var(--muted);background:transparent;
-  border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer
+  border:1px solid var(--line);border-radius:999px;padding:8px 13px;cursor:pointer;touch-action:manipulation
 }
 .langs button[aria-pressed="true"]{color:var(--bg);background:var(--gold);border-color:var(--gold)}
 .langs button:focus-visible,.chips a:focus-visible{outline:2px solid var(--gold-soft);outline-offset:2px}
-.langs button[data-lang="ar"]{font-family:var(--ar-body)}
+.langs button[data-lang="ar"]{font-family:var(--ar-body);font-size:15px}
 .cup{width:58px;height:58px;margin:18px auto 0;display:block}
 .brand{font-family:var(--script);font-size:clamp(56px,16vw,84px);line-height:1;color:var(--gold-soft);margin:4px 0 0;
   text-shadow:0 2px 0 #00000055}
 .sub{font-family:var(--display);letter-spacing:.42em;font-size:15px;color:var(--gold);margin:6px 0 0;padding-left:.42em}
-.ornament{display:flex;align-items:center;gap:10px;justify-content:center;margin:14px auto 0;color:var(--gold);max-width:240px}
+.tag{font-size:13px;letter-spacing:.18em;color:var(--muted);margin:6px 0 0;text-transform:uppercase}
+.ornament{display:flex;align-items:center;gap:10px;justify-content:center;margin:12px auto 0;color:var(--gold);max-width:240px}
 .ornament::before,.ornament::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
 .ornament::after{background:linear-gradient(270deg,transparent,var(--gold))}
 
 /* category chips */
 nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);
-  backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin-top:18px}
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--line);margin-top:16px}
 .chips{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding-block:10px}
 .chips a{text-decoration:none;color:var(--fg);font-size:14px;line-height:1.2;padding:7px 12px;border-radius:999px;
   background:var(--surface);border:1px solid var(--line);white-space:nowrap;cursor:pointer;touch-action:manipulation}
@@ -68,34 +69,46 @@ nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-
 .chips a.on{border-color:var(--gold);color:var(--gold-soft)}
 
 /* menu */
-main{padding-block:8px 40px}
+main{padding-block:8px 32px}
 section{padding-top:26px;scroll-margin-top:calc(var(--navh,64px) + env(safe-area-inset-top,0px))}
-h2{font-family:var(--display);font-weight:400;color:var(--gold);font-size:26px;margin:0 0 10px;
-  display:flex;align-items:baseline;gap:10px;text-wrap:balance}
+h2{font-family:var(--display);font-weight:400;color:var(--gold);font-size:26px;margin:0 0 8px;
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;text-wrap:balance}
 h2 .n{font-size:13px;color:var(--muted);font-family:var(--body);letter-spacing:.08em}
+h2 .sp{margin-inline-start:auto;font-family:var(--body);font-weight:700;font-size:22px;color:var(--gold-soft);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
 ul{list-style:none;margin:0;padding:0}
-li{padding-block:11px;border-bottom:1px dashed var(--line)}
-li:last-child{border-bottom:0}
+li.row{display:flex;align-items:baseline;gap:8px;padding-block:10px;border-bottom:1px dashed var(--line)}
+li.row:last-child{border-bottom:0}
+.txt{min-width:0;flex:1}
 .name{font-weight:500;font-size:18px}
 .note{display:block;color:var(--muted);font-size:15px;margin-top:2px}
+.price{flex:none;font-weight:700;color:var(--gold-soft);font-variant-numeric:tabular-nums;white-space:nowrap;font-family:var(--body)}
+.price small{font-weight:500;color:var(--muted);margin-inline-start:2px}
 
-footer{text-align:center;color:var(--muted);font-size:14px;padding-block:8px 32px;border-top:1px solid var(--line)}
+/* hookah flavours */
+.flav{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-top:4px}
+.flav li{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 11px;font-size:16px;min-width:0}
+.flav .group{grid-column:1/-1;background:none;border:0;padding:10px 0 0;color:var(--muted);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+
+footer{text-align:center;color:var(--muted);font-size:14px;padding-block:12px 32px;border-top:1px solid var(--line)}
 footer .brand-s{font-family:var(--script);color:var(--gold);font-size:22px}
 
 /* Arabic */
 html[lang="ar"] body{font-family:var(--ar-body);font-size:18px;line-height:1.75}
 html[lang="ar"] h2{font-family:var(--ar-display);font-weight:500}
-html[lang="ar"] .chips a,html[lang="ar"] .name{font-family:var(--ar-body)}
+html[lang="ar"] .chips a,html[lang="ar"] .name,html[lang="ar"] .flav li{font-family:var(--ar-body)}
 html[lang="ar"] .langs{justify-content:flex-start}
 html[lang="ar"] .sub{letter-spacing:0;padding-left:0;font-family:var(--ar-display);font-size:18px}
+html[lang="ar"] .tag,html[lang="ar"] .flav .group{letter-spacing:0}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <header>
-    <div class="langs" role="group" aria-label="Dil / اللغة">
+    <div class="langs" role="group" aria-label="Dil / Language / اللغة">
       <button type="button" id="btn-tr" data-lang="tr" aria-pressed="true">Türkçe</button>
+      <button type="button" id="btn-en" data-lang="en" aria-pressed="false">English</button>
       <button type="button" id="btn-ar" data-lang="ar" aria-pressed="false">العربية</button>
     </div>
     <svg class="cup" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#e0a64a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -107,6 +120,7 @@ html[lang="ar"] .sub{letter-spacing:0;padding-left:0;font-family:var(--ar-displa
     </svg>
     <h1 class="brand">Avşar</h1>
     <p class="sub" id="sub">CAFE</p>
+    <p class="tag" id="tag">Nargile · Kahve · Okey</p>
     <div class="ornament" aria-hidden="true">✦</div>
   </header>
 </div>
@@ -121,79 +135,112 @@ html[lang="ar"] .sub{letter-spacing:0;padding-left:0;font-family:var(--ar-displa
 </div>
 
 <script>
+/* Each name/note: [tr, en, ar]. p = price in TL (omitted when the printed menu shows none). */
 const MENU = [
-  { id:"tost", tr:"Tost Çeşitleri", ar:"أنواع التوست", items:[
-    ["Kaşarlı Tost","توست بجبنة القشقوان"],
-    ["Karışık Tost","توست مشكّل"],
-    ["Kavurmalı Tost","توست باللحم المحمّر (قاورما)"],
-    ["Beyaz Peynirli Tost","توست بالجبنة البيضاء"]
+  { id:"tost", t:["Tostlar","Toasts","التوست"], items:[
+    {n:["Kaşarlı Tost","Kaşar Cheese Toast","توست بجبنة القشقوان"], p:200},
+    {n:["Karışık Tost","Mixed Toast","توست مشكّل"], d:["Kaşar ve sucuk","Cheese & Turkish sausage","قشقوان وسجق"], p:250},
+    {n:["Kavurmalı Tost","Kavurma Toast","توست قاورما"], d:[null,"With roasted beef","باللحم المحمّر"], p:350},
+    {n:["Beyaz Peynirli Tost","White Cheese Toast","توست بالجبنة البيضاء"], p:200}
   ]},
-  { id:"yemek", tr:"Yemek Çeşitleri", ar:"الأطباق", items:[
-    ["Hamburger","همبرغر"],
-    ["Köfte Ekmek Arası","ساندويش كفتة"],
-    ["Patates Kızartması","بطاطا مقلية"],
-    ["Patso","باتسو",null,"ساندويش بطاطا مقلية"],
-    ["Menemen","منمن",null,"بيض بالطماطم والفلفل"],
-    ["Omlet","أومليت"],
-    ["Sucuklu Yumurta","بيض بالسجق"],
-    ["Ciğer Ekmek Arası","ساندويش كبدة"],
-    ["Amerikan Salatası","سلطة أمريكية"],
-    ["Kremalı Makarna","معكرونة بالكريمة"],
-    ["Tavuklu Kremalı Makarna","معكرونة بالكريمة والدجاج"],
-    ["Gözleme","كوزلمة","Kaşarlı, beyaz peynirli, patatesli","بالقشقوان، بالجبنة البيضاء، بالبطاطا"]
+  { id:"yemek", t:["Ana Yemekler","Main Course","الأطباق الرئيسية"], items:[
+    {n:["Hamburger","Hamburger","همبرغر"], p:350},
+    {n:["Köfte Ekmek Arası","Meatball Sandwich","ساندويش كفتة"], p:400},
+    {n:["Patates Kızartması","French Fries","بطاطا مقلية"], p:250},
+    {n:["Patso","Patso","باتسو"], d:[null,"Fries & sausage sandwich","ساندويش بطاطا مقلية"], p:200},
+    {n:["Menemen","Menemen","منمن"], d:[null,"Eggs with tomato & pepper","بيض بالطماطم والفلفل"], p:300},
+    {n:["Omlet","Omelette","أومليت"], p:250},
+    {n:["Sucuklu Yumurta","Eggs with Sucuk","بيض بالسجق"], p:250},
+    {n:["Amerikan Salatası","American Salad","سلطة أمريكية"]},
+    {n:["Kremalı Makarna","Creamy Pasta","معكرونة بالكريمة"], p:300},
+    {n:["Tavuklu Kremalı Makarna","Creamy Chicken Pasta","معكرونة بالكريمة والدجاج"], p:400},
+    {n:["Gözleme","Gözleme","كوزلمة"], d:["Kaşarlı, beyaz peynirli, patatesli","Stuffed flatbread: cheese, white cheese or potato","فطيرة محشوة: قشقوان، جبنة بيضاء أو بطاطا"]}
   ]},
-  { id:"tatli", tr:"Tatlı Çeşitleri", ar:"الحلويات", items:[
-    ["Antep Fıstıklı Baklava","بقلاوة بفستق عنتاب"],
-    ["Fıstıklı Baklava","بقلاوة بالفستق"],
-    ["Supangle","سوبانغلي",null,"بودينغ الشوكولاتة"],
-    ["Mangolia","مانغوليا"],
-    ["Katmer","قطمر"],
-    ["Sütlaç","أرز بالحليب"]
+  { id:"tatli", t:["Tatlılar","Desserts","الحلويات"], items:[
+    {n:["Supangle","Supangle","سوبانغلي"], d:[null,"Chocolate pudding","بودينغ الشوكولاتة"]},
+    {n:["Magnolia","Magnolia","ماغنوليا"]},
+    {n:["Sütlaç","Rice Pudding","أرز بالحليب"]}
   ]},
-  { id:"sicak", tr:"Sıcak İçecekler", ar:"المشروبات الساخنة", items:[
-    ["Çay","شاي"],
-    ["Bitki Çayı","شاي أعشاب"],
-    ["Oralet Çeşitleri","أورالت بنكهات متعددة","Muz, kivi, portakal, karadut, nane-limon ve daha fazlası","موز، كيوي، برتقال، توت أسود، نعناع وليمون والمزيد"],
-    ["Türk Kahvesi","قهوة تركية"],
-    ["Nescafe","نسكافيه"],
-    ["Salep","سحلب"],
-    ["Sıcak Çikolata","شوكولاتة ساخنة"]
+  { id:"tabak", t:["Tabaklar","Platters","الأطباق"], items:[
+    {n:["Karışık Kuruyemiş Tabağı","Mixed Nuts Platter","طبق مكسرات مشكّلة"]},
+    {n:["Karışık Meyve Tabağı","Mixed Fruit Platter","طبق فواكه مشكّلة"]}
   ]},
-  { id:"soguk", tr:"Soğuk İçecekler", ar:"المشروبات الباردة", items:[
-    ["Meşrubat","مشروبات غازية","Kola, fanta ve diğerleri","كولا، فانتا وغيرها"],
-    ["Soda","مياه معدنية غازية","Sade, limonlu, elmalı ve diğerleri","سادة، بالليمون، بالتفاح وغيرها"],
-    ["Çörçil","تشرشل",null,"صودا بالليمون"],
-    ["Ayran","عيران"]
+  { id:"sicak", t:["Sıcak İçecekler","Hot Drinks","المشروبات الساخنة"], items:[
+    {n:["Çay","Tea","شاي"], p:30},
+    {n:["Bitki Çayı","Herbal Tea","شاي أعشاب"], p:60},
+    {n:["Oralet Çeşitleri","Oralet (Fruit Tea)","أورالت (شاي فواكه)"], d:["Muz, kivi, portakal, karadut, nane, limon","Banana, kiwi, orange, black mulberry, mint, lemon","موز، كيوي، برتقال، توت أسود، نعناع، ليمون"], p:50},
+    {n:["Türk Kahvesi","Turkish Coffee","قهوة تركية"], p:150},
+    {n:["Nescafe","Nescafe","نسكافيه"], p:100},
+    {n:["Salep","Salep","سحلب"], p:150},
+    {n:["Sıcak Çikolata","Hot Chocolate","شوكولاتة ساخنة"], p:200}
   ]},
-  { id:"kuruyemis", tr:"Kuruyemiş Tabağı", ar:"طبق المكسرات", items:[
-    ["Karışık Kuruyemiş","مكسرات مشكّلة"]
+  { id:"soguk", t:["Soğuk İçecekler","Cold Drinks","المشروبات الباردة"], items:[
+    {n:["Meşrubat","Soft Drinks","مشروبات غازية"], d:["Kola, Fanta, Sprite, Ice Tea, meyve suyu vb.","Cola, Fanta, Sprite, Ice Tea, juice etc.","كولا، فانتا، سبرايت، آيس تي، عصير وغيرها"], p:150},
+    {n:["Soda","Sparkling Mineral Water","مياه معدنية غازية"], d:["Sade, limonlu, elmalı vs.","Plain, lemon, apple etc.","سادة، بالليمون، بالتفاح وغيرها"], p:60},
+    {n:["Churchill","Churchill","تشرشل"], d:[null,"Soda with lemon & salt","صودا بالليمون والملح"], p:150},
+    {n:["Atom","Atom","أتوم"], p:200},
+    {n:["Ayran","Ayran","عيران"], d:[null,"Yogurt drink","لبن عيران"], p:100}
   ]},
-  { id:"meyve", tr:"Meyve Tabağı", ar:"طبق الفواكه", items:[
-    ["Karışık Meyve","فواكه مشكّلة"]
+  { id:"nargile", t:["Nargile","Hookah","أرجيلة"], p:450, flavours:true, items:[
+    {g:["Meyveli","Fruit","فواكه"]},
+    {n:["Çift Elma","Double Apple","تفاحتين"]},
+    {n:["Pişmiş Şeftali","Peach","خوخ"]},
+    {n:["Limon","Lemon","ليمون"]},
+    {n:["Kavun","Melon","شمام"]},
+    {n:["Karpuz","Watermelon","بطيخ"]},
+    {n:["Çilek","Strawberry","فراولة"]},
+    {n:["Yaban Mersini","Blueberry","بلوبري"]},
+    {n:["Üzüm","Grape","عنب"]},
+    {n:["Limon Nane","Lemon with Mint","ليمون بالنعناع"]},
+    {n:["Üzüm Nane","Grape with Mint","عنب بالنعناع"]},
+    {g:["Özel","Special","خاص"]},
+    {n:["Love 66","Love 66","لاف ٦٦"]},
+    {n:["Lady Killer","Lady Killer","ليدي كيلر"]},
+    {n:["Dejavu","Déjà Vu","ديجافو"]},
+    {n:["Cappuccino","Cappuccino","كابتشينو"]},
+    {g:["Ferah","Fresh","منعش"]},
+    {n:["Nane","Mint","نعناع"]},
+    {n:["Sakız","Gum","علكة"]},
+    {n:["Damla Sakız","Mastic Gum","علكة مستكة"]},
+    {n:["Sakız Nane","Gum Mint","علكة بالنعناع"]}
   ]}
 ];
+const LANGS = ["tr","en","ar"];
 const UI = {
-  tr:{sub:"CAFE", foot:"Afiyet olsun", nav:"Kategoriler", items:n=>n+" çeşit"},
-  ar:{sub:"مقهى", foot:"بالهناء والشفاء", nav:"الأقسام", items:n=>n+" أصناف"}
+  tr:{sub:"CAFE", tag:"Nargile · Kahve · Okey", foot:"Fiyatlar Türk Lirası (₺) cinsindendir. Afiyet olsun!", nav:"Kategoriler",
+      count:n=>n+" çeşit", flav:n=>n+" aroma"},
+  en:{sub:"CAFE", tag:"Hookah · Coffee · Okey", foot:"Prices are in Turkish lira (₺). Enjoy your meal!", nav:"Categories",
+      count:n=>n+" items", flav:n=>n+" flavours"},
+  ar:{sub:"مقهى", tag:"أرجيلة · قهوة · أوكي", foot:"الأسعار بالليرة التركية (₺). بالهناء والشفاء!", nav:"الأقسام",
+      count:n=>n+" أصناف", flav:n=>n+" نكهة"}
 };
 const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pick = (arr,i) => arr ? (arr[i] ?? null) : null;
+const money = p => `<span class="price">${p}<small>₺</small></span>`;
 
 function render(lang){
+  const i = LANGS.indexOf(lang);
   const ar = lang==="ar";
   document.documentElement.lang = lang;
   document.documentElement.dir = ar ? "rtl" : "ltr";
   document.getElementById("sub").textContent = UI[lang].sub;
+  document.getElementById("tag").textContent = UI[lang].tag;
   document.getElementById("foot").textContent = UI[lang].foot;
   document.querySelector("nav").setAttribute("aria-label", UI[lang].nav);
-  document.getElementById("chips").innerHTML = MENU.map(c=>`<a href="#${c.id}" data-id="${c.id}">${esc(ar?c.ar:c.tr)}</a>`).join("");
-  document.getElementById("menu").innerHTML = MENU.map(c=>`
-    <section id="${c.id}">
-      <h2>${esc(ar?c.ar:c.tr)} <span class="n">${esc(UI[lang].items(c.items.length))}</span></h2>
-      <ul>${c.items.map(([tr,a,trNote,arNote])=>{
-        const note = ar ? arNote : trNote;
-        return `<li><span class="name">${esc(ar?a:tr)}</span>${note?`<span class="note">${esc(note)}</span>`:""}</li>`;
-      }).join("")}</ul>
-    </section>`).join("");
+  document.getElementById("chips").innerHTML = MENU.map(c=>`<a href="#${c.id}" data-id="${c.id}">${esc(c.t[i])}</a>`).join("");
+  document.getElementById("menu").innerHTML = MENU.map(c=>{
+    const real = c.items.filter(x=>x.n);
+    const count = c.flavours ? UI[lang].flav(real.length) : UI[lang].count(real.length);
+    const head = `<h2>${esc(c.t[i])} <span class="n">${esc(count)}</span>${c.p?`<span class="sp">${c.p} ₺</span>`:""}</h2>`;
+    if(c.flavours){
+      return `<section id="${c.id}">${head}<ul class="flav">${c.items.map(x=>
+        x.g ? `<li class="group">${esc(x.g[i])}</li>` : `<li>${esc(x.n[i])}</li>`).join("")}</ul></section>`;
+    }
+    return `<section id="${c.id}">${head}<ul>${c.items.map(x=>{
+      const note = pick(x.d,i);
+      return `<li class="row"><span class="txt"><span class="name">${esc(x.n[i])}</span>${note?`<span class="note">${esc(note)}</span>`:""}</span>${x.p?money(x.p):""}</li>`;
+    }).join("")}</ul></section>`;
+  }).join("");
   document.querySelectorAll(".langs button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.lang===lang)));
   observe();
 }
@@ -205,10 +252,7 @@ function observe(){
   io = new IntersectionObserver(entries=>{
     entries.forEach(e=>{
       if(e.isIntersecting){
-        document.querySelectorAll(".chips a").forEach(a=>{
-          const on = a.dataset.id===e.target.id;
-          a.classList.toggle("on", on);
-        });
+        document.querySelectorAll(".chips a").forEach(a=>a.classList.toggle("on", a.dataset.id===e.target.id));
       }
     });
   },{rootMargin:"-40% 0px -55% 0px"});
@@ -230,7 +274,14 @@ function setNavH(){ document.documentElement.style.setProperty("--navh", documen
 window.addEventListener("resize", setNavH);
 
 let lang = "tr";
-try{ const s = localStorage.getItem("avsar-lang"); if(s==="tr"||s==="ar") lang = s; else if((navigator.language||"").toLowerCase().startsWith("ar")) lang="ar"; }catch(e){}
+try{
+  const s = localStorage.getItem("avsar-lang");
+  if(LANGS.includes(s)) lang = s;
+  else {
+    const nl = (navigator.language||"").toLowerCase();
+    lang = nl.startsWith("ar") ? "ar" : nl.startsWith("tr") ? "tr" : (nl ? "en" : "tr");
+  }
+}catch(e){}
 document.querySelectorAll(".langs button").forEach(b=>b.addEventListener("click",()=>{
   lang = b.dataset.lang; render(lang);
   try{ localStorage.setItem("avsar-lang", lang); }catch(e){}
